@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
-import logo from "../../assets/SHOPNEEL.png";
+import logo from "../../assets/SHOPNIL.png";
 
 const Header = () => {
   const navItems = (
     <>
       <li>
-        <Link>Home</Link>
+        <Link to='/'>Home</Link>
       </li>
 
       <li>
-        <Link>About</Link>
+        <Link to='/about'>About</Link>
       </li>
       <li>
         <Link>Services</Link>
