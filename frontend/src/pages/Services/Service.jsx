@@ -21,7 +21,7 @@ const Service = ({ service }) => {
           </h2>
           
           <div className="flex justify-between flex-1">
-            <div className="text-xl">Price: ${price}</div>
+            <div className="text-">Price: ${price}</div>
             <Link to={`/serviceDetails/${_id}`}>
             <button><FaArrowCircleRight className="w-6 h-6" /></button>
             </Link>
