@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import img from "../../assets/images/login/login.svg";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
 const Register = () => {
-    const [users,setUsers] = useState([])
+    
+    const {createUser, setUser} = useContext(AuthContext)
   const handleRegister = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -13,6 +15,18 @@ const Register = () => {
     const photo = form.photo.value;
     const registeredUser = { name, email, password, confirm, photo};
     console.log(registeredUser);
+    createUser(email,password)
+    .then(result => {
+        const loggedUser = result.user;
+        console.log(loggedUser)
+        alert('user created successfully')
+        setUser(loggedUser)
+
+    })
+    .catch(error => {
+        alert('something went wrong', error)
+        console.log(error)
+    })
   };
   return (
     <div className="hero min-h-screen bg-base-200 my-12">
@@ -84,7 +98,7 @@ const Register = () => {
               />
             </div>
             <div className="form-control mt-6">
-              <input type="submit" value="Login" className="btn btn-primary" />
+              <input type="submit" value="Register" className="btn btn-primary" />
             </div>
           </form>
           <p className="text-center my-5">
