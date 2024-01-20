@@ -1,14 +1,15 @@
 import { useContext } from "react";
-import { useLoaderData } from "react-router-dom";
+import { json, useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const CheckOut = () => {
   const service = useLoaderData();
-  
+
   const { _id, img, description, price, title, facility } = service;
- const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
   const handleService = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const form = e.target;
     const name = form.name.value;
     const date = form.date.value;
@@ -18,19 +19,40 @@ const CheckOut = () => {
     const message = form.message.value;
 
     const serviceDetails = {
-        customerName: name,
-        Service: title,
-        service_id : _id,
-        date,
-        time,
-        email,
-        price: '$'+ price,
-        phone,
-        message
-    }
-    console.log(serviceDetails)
-
-  }
+      customerName: name,
+      Service: title,
+      service_id: _id,
+      date,
+      time,
+      email,
+      img,
+      price: "$" + price,
+      phone,
+      message,
+    };
+    console.log(serviceDetails);
+    fetch("http://localhost:5000/bookings", {
+      method: "post",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(serviceDetails),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Your order has been sent",
+            text: "You Will gen an confirmation email soon",
+            showConfirmButton: false,
+            timer: 5000,
+          });
+        }
+      });
+  };
   return (
     <div>
       <h1 className="text-center text-2xl font-extrabold">
@@ -87,7 +109,7 @@ const CheckOut = () => {
                 <input
                   type="text"
                   name="amount"
-                  defaultValue={'$'+ price}
+                  defaultValue={"$" + price}
                   className="input input-bordered"
                   required
                 />
