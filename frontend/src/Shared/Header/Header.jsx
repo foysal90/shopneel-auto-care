@@ -1,29 +1,36 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/SHOPNIL.png";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Header = () => {
-  const {logOut, user, setLoading} = useContext(AuthContext)
+  const { logOut, user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleLogOut = () => {
     logOut()
-    .then(()=> {
-      alert('logged out')
-      setLoading(true)
-    })
-    .catch(error => {
-      console.log(error.message)
-    })
-  }
+      .then(() => {
+        Swal.fire({
+          position: "top",
+          icon: "success",
+          title: "Your have logged out",
+          showConfirmButton: navigate("/"),
+          timer: 2000,
+        });
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
   const navItems = (
     <>
       <li>
-        <Link to='/'>Home</Link>
+        <Link to="/">Home</Link>
       </li>
 
       <li>
-        <Link to='/about'>About</Link>
+        <Link to="/about">About</Link>
       </li>
       <li>
         <Link>Services</Link>
@@ -34,13 +41,20 @@ const Header = () => {
       <li>
         <Link>Contact</Link>
       </li>
-      <li>
-       {
-       user?.email ? <button onClick={handleLogOut}>Log out</button>
-       : 
-       <Link to='/login'>Login</Link>
-       }
-      </li>
+      
+        {user?.email ? 
+          <>
+            
+              <li><Link to="/bookings">My Bookings</Link></li>
+             <li><button onClick={handleLogOut}>Log out</button></li>
+            
+          </>
+         : 
+          
+            <li><Link to="/login">Login</Link></li>
+          
+        }
+      
     </>
   );
   return (
@@ -75,19 +89,13 @@ const Header = () => {
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-        {navItems}
-        </ul>
+        <ul className="menu menu-horizontal px-1">{navItems}</ul>
       </div>
-      <div>
-        {
-          user && <p>{user.email}</p>
-        }
-      </div>
+      <div>{user && <p>{user.email}</p>}</div>
       <div className="navbar-end">
-     <Link>
-     <button className="btn btn-outline btn-error">Appointment</button>
-     </Link>
+        <Link>
+          <button className="btn btn-outline btn-error">Appointment</button>
+        </Link>
       </div>
     </div>
   );

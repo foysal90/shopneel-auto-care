@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import { json, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
 
 const CheckOut = () => {
   const service = useLoaderData();
 
-  const { _id, img, description, price, title, facility } = service;
+  const { _id, img, price, title, } = service;
   const { user } = useContext(AuthContext);
   const handleService = (e) => {
     e.preventDefault();
@@ -46,9 +46,10 @@ const CheckOut = () => {
             position: "center",
             icon: "success",
             title: "Your order has been sent",
-            text: "You Will gen an confirmation email soon",
-            showConfirmButton: false,
-            timer: 5000,
+            text: "You Will get an confirmation email soon",
+            showConfirmButton: "Great!!",
+            
+            // timer: 3000,
           });
         }
       });

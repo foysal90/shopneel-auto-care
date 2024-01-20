@@ -6,6 +6,7 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import ServiceDetails from "../pages/ServiceDetails/ServiceDetails";
 import CheckOut from "../Shared/CheckOut/CheckOut";
+import Bookings from "../pages/Bookings/Bookings";
 
 
 const Routes = () => {
@@ -42,6 +43,10 @@ const Routes = () => {
                     element:<CheckOut/>,
                     loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
                 },
+                {
+                    path: '/bookings',
+                    element: <Bookings/>
+                }
                
             ]
         }

@@ -1,10 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import img from '../../assets/images/login/login.svg'
 import { useContext } from 'react';
 import { AuthContext } from '../../Providers/AuthProvider';
+import Swal from 'sweetalert2';
 
 const Login = () => {
     const {logIn, setUser} = useContext(AuthContext)
+    const navigate = useNavigate()
     const handleLogin = (e) => {
         e.preventDefault()
         const form = e.target;
@@ -16,7 +18,14 @@ const Login = () => {
         .then(result => {
             const loggedUser = result.user;
             console.log(loggedUser)
-            alert('user logged in')
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Your have logged in",
+              showConfirmButton:navigate('/'), 
+              timer:2000
+              
+            });
             setUser(loggedUser)
         })
 
