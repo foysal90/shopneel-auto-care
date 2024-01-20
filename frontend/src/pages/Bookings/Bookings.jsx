@@ -8,7 +8,7 @@ const Bookings = () => {
     const [bookings, setBookings] = useState([])
 
 
-    const url =`http://localhost:5000/bookings?email=${user.email}`;
+    const url =`http://localhost:5000/bookings?email=${user?.email}`;
     useEffect(()=> {
         fetch(url)
         .then(res => res.json())
@@ -19,8 +19,27 @@ const Bookings = () => {
     return (
         <div>
             <h1> My Bookings: {bookings.length}</h1>
-           <div className="grid grid-cols-2 gap-3">
-           {
+            <div className="overflow-x-auto">
+      <table className="table">
+        {/* head */}
+        <thead>
+          <tr>
+            <th>
+              <label>
+                <input type="checkbox" className="checkbox" />
+              </label>
+            </th>
+            <th>Name</th>
+            <th>Service</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Price</th>
+            <th>Service_id</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        {
                 bookings.map(booking => <Booking
                 key={booking._id}
                 booking={booking}
@@ -28,7 +47,15 @@ const Bookings = () => {
                 
                 />)
             }
-           </div>
+         
+         
+         
+         
+        </tbody>
+      
+      </table>
+    </div>
+           
         </div>
     );
 };
