@@ -1,7 +1,21 @@
 import { Link } from "react-router-dom";
 import logo from "../../assets/SHOPNIL.png";
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const Header = () => {
+  const {logOut, user, setLoading} = useContext(AuthContext)
+
+  const handleLogOut = () => {
+    logOut()
+    .then(()=> {
+      alert('logged out')
+      setLoading(true)
+    })
+    .catch(error => {
+      console.log(error.message)
+    })
+  }
   const navItems = (
     <>
       <li>
@@ -19,6 +33,13 @@ const Header = () => {
       </li>
       <li>
         <Link>Contact</Link>
+      </li>
+      <li>
+       {
+       user?.email ? <button onClick={handleLogOut}>Log out</button>
+       : 
+       <Link to='/login'>Login</Link>
+       }
       </li>
     </>
   );
@@ -57,6 +78,11 @@ const Header = () => {
         <ul className="menu menu-horizontal px-1">
         {navItems}
         </ul>
+      </div>
+      <div>
+        {
+          user && <p>{user.email}</p>
+        }
       </div>
       <div className="navbar-end">
      <Link>

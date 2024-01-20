@@ -5,6 +5,7 @@ import About from "../pages/About/About";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import ServiceDetails from "../pages/ServiceDetails/ServiceDetails";
+import CheckOut from "../Shared/CheckOut/CheckOut";
 
 
 const Routes = () => {
@@ -33,8 +34,13 @@ const Routes = () => {
               
                 {
                     path: '/serviceDetails/:id',
-                    element:<ServiceDetails/>
-                    // loader: ({params}) => fetch(`services.json/${params.id}`)
+                    element:<ServiceDetails/>,
+                    loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
+                },
+                {
+                    path: '/checkout/:id',
+                    element:<CheckOut/>,
+                    loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
                 },
                
             ]
