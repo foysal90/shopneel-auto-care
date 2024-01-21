@@ -26,7 +26,8 @@ const Bookings = () => {
           <tr>
             <th>
               <label>
-                <input type="checkbox" className="checkbox" />
+                Actions
+                {/* <input type="checkbox" className="checkbox" /> */}
               </label>
             </th>
             <th>Name</th>
@@ -35,7 +36,7 @@ const Bookings = () => {
             <th>Time</th>
             <th>Price</th>
             <th>Service_id</th>
-            <th></th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
@@ -44,6 +45,8 @@ const Bookings = () => {
                 key={booking._id}
                 booking={booking}
                 setLoading={setLoading}
+                setBookings={setBookings}
+                bookings={bookings}
                 
                 />)
             }

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/SHOPNIL.png";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
@@ -26,11 +26,11 @@ const Header = () => {
   const navItems = (
     <>
       <li>
-        <Link to="/">Home</Link>
+        <NavLink to="/">Home</NavLink>
       </li>
 
       <li>
-        <Link to="/about">About</Link>
+        <NavLink to="/about">About</NavLink>
       </li>
       <li>
         <Link>Services</Link>
@@ -45,13 +45,13 @@ const Header = () => {
         {user?.email ? 
           <>
             
-              <li><Link to="/bookings">My Bookings</Link></li>
+              <li><NavLink to="/bookings">My Bookings</NavLink></li>
              <li><button onClick={handleLogOut}>Log out</button></li>
             
           </>
          : 
           
-            <li><Link to="/login">Login</Link></li>
+            <li><NavLink to="/login">Login</NavLink></li>
           
         }
       
