@@ -1,8 +1,10 @@
 const express = require("express");
+const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 5000;
 const { MongoClient, ObjectId } = require("mongodb");
+const { verifyJwt } = require("./jwt");
 require("dotenv").config();
 
 //middleware
@@ -21,6 +23,16 @@ async function run() {
     const serviceCollection = client.db("autoCare").collection("services");
     const bookingCollection = client.db("autoCare").collection("bookings");
 
+    //jwt
+    app.post("/jwt", (req, res) => {
+      const user = req.body;
+      const token = jwt.sign(user, process.env.ACCESS_SECRET_TOKEN, {
+        expiresIn: "1h",
+      });
+      console.log(token);
+      res.send({ token });
+    });
+    //services
     app.get("/services", async (req, res) => {
       const product = await serviceCollection.find().toArray();
       res.send(product);
@@ -37,7 +49,8 @@ async function run() {
     });
 
     //get data from booking
-    app.get("/bookings", async (req, res) => {
+    app.get("/bookings", verifyJwt, async (req, res) => {
+      
       let query = {};
       if (req.query?.email) {
         query = { email: req.query.email };
@@ -58,6 +71,26 @@ async function run() {
       console.log(booking);
       const result = await bookingCollection.insertOne(booking);
       res.send(result);
+    });
+
+    //update
+
+    app.patch("/bookings/:id", async (req, res) => {
+      const id = req.params.id;
+      const updated = req.body;
+      console.log(updated, "has been updated");
+      const filter = { _id: new ObjectId(id) };
+      const updatedDoc = {
+        $set: {
+          status: "confirm",
+        },
+      };
+      const updatedBookings = await bookingCollection.updateOne(
+        filter,
+        updatedDoc,
+        updated
+      );
+      res.send(updatedBookings);
     });
 
     //delete
