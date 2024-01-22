@@ -11,6 +11,7 @@ const Header = () => {
   const handleLogOut = () => {
     logOut()
       .then(() => {
+        localStorage.removeItem('auto-care-access-token')
         Swal.fire({
           position: "top",
           icon: "success",

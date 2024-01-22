@@ -18,17 +18,33 @@ const Login = () => {
         console.log(user)
         logIn(email, password)
         .then(result => {
-            const loggedUser = result.user;
+            const user = result.user;
+            const loggedUser ={
+              email:  user.email
+            }
             console.log(loggedUser)
-            Swal.fire({
-              position: "center",
-              icon: "success",
-              title: "Your have logged in",
-              showConfirmButton:navigate(from, {replace:true}), 
-              timer:2000
+            fetch('http://localhost:5000/jwt', {
+              method: 'POST',
+              headers: {
+                'content-type': 'application/json'
+              },
+              body: JSON.stringify(loggedUser)
+            })
+            .then(res => res.json())
+            .then(data => {
+              console.log(data)
+              //warning: local stroage is not the best place to access token
+              localStorage.setItem('auto-care-access-token', data.token)
+            })
+            // Swal.fire({
+            //   position: "center",
+            //   icon: "success",
+            //   title: "Your have logged in",
+            //   showConfirmButton:navigate(from, {replace:true}), 
+            //   timer:2000
               
-            });
-            setUser(loggedUser)
+            // });
+            // setUser(loggedUser)
         })
 
         .then(error => {
