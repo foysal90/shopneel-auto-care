@@ -37,8 +37,11 @@ const Bookings = () => {
             <th>Price</th>
             <th>Service_id</th>
             <th>Status</th>
+            
           </tr>
+         
         </thead>
+        
         <tbody>
         {
                 bookings.map(booking => <Booking
@@ -47,6 +50,7 @@ const Bookings = () => {
                 setLoading={setLoading}
                 setBookings={setBookings}
                 bookings={bookings}
+                
                 
                 />)
             }

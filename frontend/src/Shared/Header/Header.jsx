@@ -39,7 +39,7 @@ const Header = () => {
         <Link>Blog</Link>
       </li>
       <li>
-        <Link>Contact</Link>
+        <Link to='/contactus'>Contact us</Link>
       </li>
       
         {user?.email ? 

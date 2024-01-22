@@ -1,11 +1,11 @@
-import { useContext } from "react";
+import { useContext} from "react";
 import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
 
 const CheckOut = () => {
   const service = useLoaderData();
-
+ 
   const { _id, img, price, title, } = service;
   const { user } = useContext(AuthContext);
   const handleService = (e) => {

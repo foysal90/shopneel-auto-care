@@ -1,8 +1,10 @@
 import Swal from "sweetalert2";
 import { FaDeleteLeft } from "react-icons/fa6";
+import { useState } from "react";
 const Booking = ({ booking, setLoading, bookings, setBookings }) => {
   const {customerName,img,_id,Service,email,date,time,message,phone, price, service_id, status } = booking;
-  setLoading(false);
+  // setLoading(false);
+  // const [confirm,setConfirm] = useState("")
 
   const handleDelete = (_id) => {
     const swalWithBootstrapButtons = Swal.mixin({
@@ -62,6 +64,7 @@ const Booking = ({ booking, setLoading, bookings, setBookings }) => {
   };
 
   const handleUpdate = (id) => {
+  
     Swal.fire({
       title: "Do you want to save the changes?",
       showDenyButton: true,
@@ -71,12 +74,15 @@ const Booking = ({ booking, setLoading, bookings, setBookings }) => {
     })
     .then(result => {
       if (result.isConfirmed) {
+        
         fetch(`http://localhost:5000/bookings/${id}`, {
+          
       method: 'PATCH',
       headers: {
         'content-type' : 'application/json'
       },
       body: JSON.stringify({status : 'Confirm'})
+      
     })
     .then(res => res.json())
     .then(data => {
@@ -89,9 +95,13 @@ const Booking = ({ booking, setLoading, bookings, setBookings }) => {
         updatedBooking.status = 'Confirm';
         const newBookings = [updatedBooking, ...remainingBooking]
         setBookings(newBookings)
+        
+        
+        
       } 
-      
+     
     })
+    
     Swal.fire({
       title: `${Service} Service has been Updated`,
       icon: "success",
@@ -100,6 +110,7 @@ const Booking = ({ booking, setLoading, bookings, setBookings }) => {
       imageHeight: 200,
       imageAlt: { Service },
       
+      
     });
     
     
@@ -107,13 +118,14 @@ const Booking = ({ booking, setLoading, bookings, setBookings }) => {
       else if (result.isDenied) {
         Swal.fire("Changes are not saved", "", "info");
       }
-
+    
     })
     
     
 
   }
-  setLoading(false);
+
+  // setLoading(false);
   return (
     <tr>
       <th>
@@ -141,11 +153,14 @@ const Booking = ({ booking, setLoading, bookings, setBookings }) => {
       <td>{service_id}</td>
       <th>
         { status === 'Confirm' ? <span className="text-xl font-bold text-purple-800">Confirmed</span>
+         
         :
-          <button onClick={()=> handleUpdate(_id)}  className="btn btn-ghost btn-xs">Please Confirm</button>
+          <button onClick={()=> handleUpdate(_id)}    className="btn btn-ghost btn-xs">Please Confirm</button>
+          
           }
-
+      
       </th>
+      
     </tr>
   );
 };
