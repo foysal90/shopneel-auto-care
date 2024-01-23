@@ -35,15 +35,16 @@ const Login = () => {
               console.log(data)
               //warning: local stroage is not the best place to access token
               localStorage.setItem('auto-care-access-token', data.token)
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Your have logged in",
+                showConfirmButton:navigate(from, {replace:true}), 
+                timer:2000
+                
+              });
             })
-            // Swal.fire({
-            //   position: "center",
-            //   icon: "success",
-            //   title: "Your have logged in",
-            //   showConfirmButton:navigate(from, {replace:true}), 
-            //   timer:2000
-              
-            // });
+            
             // setUser(loggedUser)
         })
 

@@ -1,11 +1,11 @@
 import { useContext} from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
 
 const CheckOut = () => {
   const service = useLoaderData();
- 
+ const navigate = useNavigate()
   const { _id, img, price, title, } = service;
   const { user } = useContext(AuthContext);
   const handleService = (e) => {
@@ -47,9 +47,8 @@ const CheckOut = () => {
             icon: "success",
             title: "Your order has been sent",
             text: "You Will get an confirmation email soon",
-            showConfirmButton: "Great!!",
-            
-            // timer: 3000,
+            showConfirmButton: navigate('/bookings'),
+            timer: 2000,
           });
         }
       });
@@ -150,7 +149,7 @@ const CheckOut = () => {
               className="textarea textarea-success textarea-bordered textarea-lg w-full "
             ></textarea>
             <div className="form-control mt-6">
-              <button className="btn btn-primary">Confirm Order</button>
+              <button className="btn btn-primary w-full">Confirm Order</button>
             </div>
           </form>
         </div>

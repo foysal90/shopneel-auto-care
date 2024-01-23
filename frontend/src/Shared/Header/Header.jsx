@@ -11,6 +11,7 @@ const Header = () => {
   const handleLogOut = () => {
     logOut()
       .then(() => {
+        //deleting access token from local storage when user is logged out
         localStorage.removeItem('auto-care-access-token')
         Swal.fire({
           position: "top",
