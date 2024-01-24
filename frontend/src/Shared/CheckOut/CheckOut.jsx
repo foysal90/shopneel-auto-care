@@ -1,12 +1,12 @@
-import { useContext} from "react";
-import {useLoaderData, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
 
 const CheckOut = () => {
   const service = useLoaderData();
- const navigate = useNavigate()
-  const { _id, img, price, title, } = service;
+  const navigate = useNavigate();
+  const { _id, img, price, title } = service;
   const { user } = useContext(AuthContext);
   const handleService = (e) => {
     e.preventDefault();
@@ -31,7 +31,7 @@ const CheckOut = () => {
       message,
     };
     console.log(serviceDetails);
-    fetch("http://localhost:5000/bookings", {
+    fetch("https://shopneel-auto-care.vercel.app/bookings", {
       method: "post",
       headers: {
         "content-type": "application/json",
@@ -47,7 +47,7 @@ const CheckOut = () => {
             icon: "success",
             title: "Your order has been sent",
             text: "You Will get an confirmation email soon",
-            showConfirmButton: navigate('/bookings'),
+            showConfirmButton: navigate("/bookings"),
             timer: 2000,
           });
         }

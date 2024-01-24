@@ -42,26 +42,23 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
       if (currentUser && currentUser.email) {
         const loggedUser = {
-            email: currentUser.email
-        }
-        fetch('http://localhost:5000/jwt', {
-            method: 'POST', 
-            headers: {
-                'content-type' : 'application/json'
-            },
-            body: JSON.stringify(loggedUser)
+          email: currentUser.email,
+        };
+        fetch("https://shopneel-auto-care.vercel.app/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(loggedUser),
         })
-        .then(res => res.json())
-        .then(data => {
-            localStorage.setItem("auto-care-access-token", data.token)
-            console.log('token', data.token)
-        })
-        
+          .then((res) => res.json())
+          .then((data) => {
+            localStorage.setItem("auto-care-access-token", data.token);
+            console.log("token", data.token);
+          });
+      } else {
+        localStorage.removeItem("auto-care-access-token");
       }
-      else {
-        localStorage.removeItem("auto-care-access-token")
-      }
-     
     });
 
     // Cleanup function to unsubscribe when the component unmounts
