@@ -35,13 +35,13 @@ const Header = () => {
         <NavLink to="/about">About</NavLink>
       </li>
       <li>
-        <Link>Services</Link>
+        <NavLink to='/services'>Services</NavLink>
       </li>
       <li>
         <Link>Blog</Link>
       </li>
       <li>
-        <Link to='/contactus'>Contact us</Link>
+        <NavLink to='/contactus'>Contact us</NavLink>
       </li>
       
         {user?.email ? 
@@ -60,7 +60,7 @@ const Header = () => {
     </>
   );
   return (
-    <div className="navbar bg-base-100 h-20 my-5">
+    <div className="navbar bg-base-100 h-20 my-5 ">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
