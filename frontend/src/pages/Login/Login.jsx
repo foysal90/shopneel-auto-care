@@ -3,9 +3,10 @@ import img from "../../assets/images/login/login.svg";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
+import SocialLogin from "../../Shared/SocialLogin/SocialLogin";
 
 const Login = () => {
-  const { logIn, setUser } = useContext(AuthContext);
+  const { logIn} = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -19,25 +20,7 @@ const Login = () => {
     logIn(email, password)
       .then((result) => {
         const user = result.user;
-        const loggedUser = {
-          email: user.email,
-        };
-        fetch("http://localhost:5000/jwt", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(loggedUser),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-            //'auto-care-access-token'
-            localStorage.setItem("auto-care-access-token", data.token);
-            console.log(data.token);
-          });
-
-        console.log(loggedUser);
+        console.log(user);
         Swal.fire({
           position: "center",
           icon: "success",
@@ -45,7 +28,7 @@ const Login = () => {
           showConfirmButton: navigate(from, { replace: true }),
           timer: 2000,
         });
-        setUser(loggedUser);
+        // setUser(loggedUser);
       })
 
       .then((error) => {
@@ -95,12 +78,14 @@ const Login = () => {
               <input type="submit" value="Login" className="btn btn-primary" />
             </div>
           </form>
+          
+          <SocialLogin/>
           <p className="text-center my-5">
-            {" "}
-            Need an Account? Please{" "}
+            
+            Need an Account? Please
             <Link to="/register" className="font-bold text-orange-500">
               Register
-            </Link>{" "}
+            </Link>
           </p>
         </div>
       </div>
@@ -109,19 +94,4 @@ const Login = () => {
 };
 
 export default Login;
-// const loggedUser ={
-//   email:  user.email
-// }
-// console.log(loggedUser)
-// fetch('http://localhost:5000/jwt', {
-//   method: 'POST',
-//   headers: {
-//     'content-type': 'application/json'
-//   },
-//   body: JSON.stringify(loggedUser)
-// })
-// .then(res => res.json())
-// .then(data => {
-//   console.log(data)
-//   localStorage.setItem('auto-care-access-token', data.token)
-//warning: local stroage is not the best place to access token
+

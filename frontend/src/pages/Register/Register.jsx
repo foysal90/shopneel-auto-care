@@ -1,10 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import img from "../../assets/images/login/login.svg";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+import SocialLogin from "../../Shared/SocialLogin/SocialLogin";
 const Register = () => {
     
-    const {createUser, setUser} = useContext(AuthContext)
+  const {createUser} = useContext(AuthContext)
+  const location = useLocation()
+  const navigate = useNavigate()
+  const from = location.state?.from?.pathName || '/';
   const handleRegister = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -20,7 +24,8 @@ const Register = () => {
         const loggedUser = result.user;
         console.log(loggedUser)
         alert('user created successfully')
-        setUser(loggedUser)
+        navigate(from, { replace: true })
+        //setUser(loggedUser)
 
     })
     .catch(error => {
@@ -101,12 +106,13 @@ const Register = () => {
               <input type="submit" value="Register" className="btn btn-primary" />
             </div>
           </form>
+          <SocialLogin/>
           <p className="text-center my-5">
-            {" "}
-            Already an Account? Please{" "}
+           
+            Already an Account? Please
             <Link to="/login" className="font-bold text-orange-500">
               Login
-            </Link>{" "}
+            </Link>
           </p>
         </div>
       </div>
