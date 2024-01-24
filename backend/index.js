@@ -29,7 +29,7 @@ async function run() {
       const token = jwt.sign(user, process.env.ACCESS_SECRET_TOKEN, {
         expiresIn: "1h",
       });
-      console.log(token);
+      //console.log(token);
       res.send({ token });
     });
     //services
@@ -50,7 +50,11 @@ async function run() {
 
     //get data from booking
     app.get("/bookings", verifyJwt, async (req, res) => {
-      
+      const decoded = req.decoded;
+      //checking that someone else should not be able to get or see the information from different email or user
+      if (decoded.email !== req.query.email) {
+        return res.status(403).send({error:1, message:'forbidden access , please login with your valid email'})
+      }
       let query = {};
       if (req.query?.email) {
         query = { email: req.query.email };
@@ -82,7 +86,7 @@ async function run() {
       const filter = { _id: new ObjectId(id) };
       const updatedDoc = {
         $set: {
-          status: "confirm",
+          status: "confirmed",
         },
       };
       const updatedBookings = await bookingCollection.updateOne(
