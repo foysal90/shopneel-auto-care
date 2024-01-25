@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 import app from "../firebase/firebase.config";
 import {
   GoogleAuthProvider,
@@ -17,6 +17,7 @@ const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -35,6 +36,7 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return signOut(auth);
   };
+  
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       console.log("currentUser", currentUser);
@@ -44,7 +46,7 @@ const AuthProvider = ({ children }) => {
         const loggedUser = {
           email: currentUser.email,
         };
-        fetch("https://shopneel-auto-care.vercel.app/jwt", {
+        fetch("https://shopneed-auto-care.vercel.app/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -73,6 +75,7 @@ const AuthProvider = ({ children }) => {
     logOut,
     setLoading,
     googleLogin,
+    
   };
   return (
     <div>

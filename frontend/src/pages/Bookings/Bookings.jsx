@@ -8,7 +8,7 @@ const Bookings = () => {
   const [bookings, setBookings] = useState([]);
   const navigate = useNavigate();
 
-  const url = `https://shopneel-auto-care.vercel.app/bookings?email=${user?.email}`;
+  const url = `https://shopneed-auto-care.vercel.app/bookings?email=${user?.email}`;
   useEffect(() => {
     fetch(url, {
       method: "GET",

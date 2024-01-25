@@ -39,7 +39,7 @@ const Booking = ({ booking, setLoading, bookings, setBookings }) => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          fetch(`https://shopneel-auto-care.vercel.app/bookings/${_id}`, {
+          fetch(`https://shopneed-auto-care.vercel.app/bookings/${_id}`, {
             method: "DELETE",
           })
             .then((res) => res.json())
@@ -80,7 +80,7 @@ const Booking = ({ booking, setLoading, bookings, setBookings }) => {
       denyButtonText: `Don't save`,
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://shopneel-auto-care.vercel.app/bookings/${id}`, {
+        fetch(`https://shopneed-auto-care.vercel.app/bookings/${id}`, {
           method: "PATCH",
           headers: {
             "content-type": "application/json",
@@ -145,7 +145,6 @@ const Booking = ({ booking, setLoading, bookings, setBookings }) => {
       <td>{service_id}</td>
       <th>
         {status === "Confirm" ? (
-             
           <span className="text-xl font-bold text-purple-800">Confirmed</span>
         ) : (
           <button

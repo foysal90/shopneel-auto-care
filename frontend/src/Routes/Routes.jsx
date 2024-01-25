@@ -43,7 +43,7 @@ const Routes = () => {
           element: <ServiceDetails />,
           loader: ({ params }) =>
             fetch(
-              `https://shopneel-auto-care.vercel.app/services/${params.id}`
+              `https://shopneed-auto-care.vercel.app/services/${params.id}`
             ),
         },
         {
@@ -55,7 +55,7 @@ const Routes = () => {
           ),
           loader: ({ params }) =>
             fetch(
-              `https://shopneel-auto-care.vercel.app/services/${params.id}`
+              `https://shopneed-auto-care.vercel.app/services/${params.id}`
             ),
         },
         {

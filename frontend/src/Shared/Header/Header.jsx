@@ -1,12 +1,15 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/SHOPNIL.png";
-import { useContext } from "react";
+import { useContext} from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
+import Search from "../Search/Search";
 
 const Header = () => {
   const { logOut, user } = useContext(AuthContext);
   const navigate = useNavigate();
+  
+ 
 
   const handleLogOut = () => {
     logOut()
@@ -94,6 +97,11 @@ const Header = () => {
         <ul className="menu menu-horizontal px-1">{navItems}</ul>
       </div>
       <div>{user && <p>{user.email}</p>}</div>
+       
+      <Search/>
+
+
+
       <div className="navbar-end">
         <Link>
           <button className="btn btn-outline btn-error">Appointment</button>

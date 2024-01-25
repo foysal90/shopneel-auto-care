@@ -31,7 +31,7 @@ const CheckOut = () => {
       message,
     };
     console.log(serviceDetails);
-    fetch("https://shopneel-auto-care.vercel.app/bookings", {
+    fetch("https://shopneed-auto-care.vercel.app/bookings", {
       method: "post",
       headers: {
         "content-type": "application/json",
