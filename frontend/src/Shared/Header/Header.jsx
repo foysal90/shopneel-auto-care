@@ -3,7 +3,7 @@ import logo from "../../assets/SHOPNIL.png";
 import { useContext} from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
-import Search from "../Search/Search";
+//import Search from "../Search/Search";
 
 const Header = () => {
   const { logOut, user } = useContext(AuthContext);
@@ -98,7 +98,7 @@ const Header = () => {
       </div>
       <div>{user && <p>{user.email}</p>}</div>
        
-      <Search/>
+      {/* <Search/> */}
 
 
 

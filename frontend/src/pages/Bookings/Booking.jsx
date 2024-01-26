@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import { FaDeleteLeft } from "react-icons/fa6";
-import { useState } from "react";
-const Booking = ({ booking, setLoading, bookings, setBookings }) => {
+
+const Booking = ({ booking, bookings, setBookings }) => {
   const {
     customerName,
     img,
@@ -10,8 +10,7 @@ const Booking = ({ booking, setLoading, bookings, setBookings }) => {
     email,
     date,
     time,
-    message,
-    phone,
+   
     price,
     service_id,
     status,
