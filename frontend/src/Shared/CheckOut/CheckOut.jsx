@@ -1,13 +1,17 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
+import ReactDatePicker from "react-datepicker";
 
 const CheckOut = () => {
   const service = useLoaderData();
   const navigate = useNavigate();
   const { _id, img, price, title } = service;
   const { user } = useContext(AuthContext);
+
+  const [startDate, setStartDate] = useState(new Date());
+
   const handleService = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -79,12 +83,11 @@ const CheckOut = () => {
                 <label className="label">
                   <span className="label-text">Date</span>
                 </label>
-                <input
-                  type="date"
+
+                <ReactDatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
                   name="date"
-                  placeholder="Date"
-                  className="input input-bordered"
-                  required
                 />
               </div>
             </div>
